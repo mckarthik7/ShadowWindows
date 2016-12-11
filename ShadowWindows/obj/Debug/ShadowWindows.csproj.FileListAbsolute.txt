@@ -1,0 +1,9 @@
+D:\VisualProjects\Nexus\ShadowWindows\ShadowWindows\bin\Debug\ShadowWindows.exe.config
+D:\VisualProjects\Nexus\ShadowWindows\ShadowWindows\bin\Debug\ShadowWindows.exe
+D:\VisualProjects\Nexus\ShadowWindows\ShadowWindows\bin\Debug\ShadowWindows.pdb
+D:\VisualProjects\Nexus\ShadowWindows\ShadowWindows\obj\Debug\ShadowWindows.csprojResolveAssemblyReference.cache
+D:\VisualProjects\Nexus\ShadowWindows\ShadowWindows\obj\Debug\ShadowWindows.Form1.resources
+D:\VisualProjects\Nexus\ShadowWindows\ShadowWindows\obj\Debug\ShadowWindows.Properties.Resources.resources
+D:\VisualProjects\Nexus\ShadowWindows\ShadowWindows\obj\Debug\ShadowWindows.csproj.GenerateResource.Cache
+D:\VisualProjects\Nexus\ShadowWindows\ShadowWindows\obj\Debug\ShadowWindows.exe
+D:\VisualProjects\Nexus\ShadowWindows\ShadowWindows\obj\Debug\ShadowWindows.pdb
