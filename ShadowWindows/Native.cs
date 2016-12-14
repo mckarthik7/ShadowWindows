@@ -19,10 +19,10 @@ namespace ShadowWindows
         public static void LoadProcessInControl(string _Process, Control _Control/*,IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags*/)
         {
             System.Diagnostics.Process p = System.Diagnostics.Process.Start(_Process);
-            Thread.Sleep(10000);
+            //Thread.Sleep(10000);
             try
             {
-                p.WaitForInputIdle();
+             //   p.WaitForInputIdle();
                 Native.SetParent(p.MainWindowHandle, _Control.Handle);
                // SetWindowPos(p.MainWindowHandle, hWnd, hWndInsertAfter, X, Y, cx, cy, uFlags);
             }
