@@ -22,7 +22,7 @@ namespace ShadowWindows
             //Thread.Sleep(10000);
             try
             {
-             //   p.WaitForInputIdle();
+                p.WaitForInputIdle();
                 Native.SetParent(p.MainWindowHandle, _Control.Handle);
                // SetWindowPos(p.MainWindowHandle, hWnd, hWndInsertAfter, X, Y, cx, cy, uFlags);
             }
