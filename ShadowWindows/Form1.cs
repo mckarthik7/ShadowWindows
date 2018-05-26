@@ -7,16 +7,17 @@ using System.Threading;
 using System.Windows.Forms;
 namespace ShadowWindows
 {
-    
+
     public partial class Form1 : Form
     {
         bool askedOnce = false;
+        bool running = true;
         [DllImport("user32.dll", SetLastError = true)]
         static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
 
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter,int X, int Y, int cx, int cy, uint uFlags);
+        static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
 
         [DllImport("user32.dll")]
         public static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
@@ -28,14 +29,15 @@ namespace ShadowWindows
         static extern bool UpdateWindow(IntPtr hWnd);
 
         public static int GWL_STYLE = -16;
-        public static int WS_CHILD = 0x40000000; 
+        public static int WS_CHILD = 0x40000000;
 
-        String pname="";
-        List<Process> processes=new List<Process>();
+        String pname = "";
+        List<Process> processes = new List<Process>();
         Thread t;
         public Form1()
         {
             InitializeComponent();
+            Console.WriteLine("Starting up");
             Process[] processtemp = Process.GetProcesses();
             foreach (Process p in processtemp)
             {
@@ -47,100 +49,105 @@ namespace ShadowWindows
                     listView1.Items.Add(ListViewItem);
                 }
             }
-            t= new Thread(new ParameterizedThreadStart(RecheckThreadMethod));
+            t = new Thread(new ParameterizedThreadStart(RecheckThreadMethod));
             t.Start();
             this.Closed += new EventHandler(OnClosed);
+            listView1.SelectedIndexChanged += new EventHandler(ListView1_SelectedIndexChanged);
         }
-        public void OnClosed(Object sender,EventArgs e)
+        public void OnClosed(Object sender, EventArgs e)
         {
-            t.Suspend();
+            Console.WriteLine("Closing");
+            running = false;
             Console.WriteLine("Closed");
         }
- 
-    void RecheckThreadMethod(Object o)
+
+        void RecheckThreadMethod(Object o)
         {
-            while(true)
+            while (running)
             {
                 try
                 {
                     Thread.Sleep(1000);
-                    reCheckRunningProcess();
+                    ReCheckRunningProcess();
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     Console.WriteLine("E:{0}", e);
                 }
             }
         }
-    void listView1_SelectedIndexChanged(object sender, System.EventArgs e)
-    {
-        Console.WriteLine("Selected");
-        askedOnce = !askedOnce;
-        if (listView1.SelectedIndices[0] >= 0&& askedOnce)
+        void ListView1_SelectedIndexChanged(object sender, System.EventArgs e)
         {
-            Process p = processes.ElementAt(listView1.SelectedIndices[0]);
-            DialogResult dialogResult = MessageBox.Show("Do you want to start this process in shadow windows?", "Alert", MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.Yes)
+            askedOnce = !askedOnce;
+            if (listView1.SelectedIndices[0] >= 0 && askedOnce)
             {
-                try
+                Process p = processes.ElementAt(listView1.SelectedIndices[0]);
+                DialogResult dialogResult = MessageBox.Show("Do you want to start this process ("+ p.MainWindowTitle   +") in shadow windows?", "Alert", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
                 {
-                    p.WaitForInputIdle();
-                }
-                catch(Exception err)
-                {
-
-                    Console.WriteLine("This process probably has no GUI : {0}", err.Message);
-                }
-               
-                IntPtr guestHandle = this.panel1.Handle;
-                SetWindowLong(guestHandle, GWL_STYLE, GetWindowLong(guestHandle, GWL_STYLE) | WS_CHILD);
-                IntPtr x = SetParent(p.MainWindowHandle, panel1.Handle);
-                if (x == null)
-                {
-
-                    Console.WriteLine("Last error: " + Marshal.GetLastWin32Error());
-                }
-                uint uflags = 0x0001 | 0x0002 | 0x0004 | 0x0020 ;              
-               bool value= SetWindowPos(panel1.Handle, this.Handle, 0, 0, 600, 600,uflags);
-                if(!value)
-                {
-                    Console.WriteLine("Error {0}",Marshal.GetLastWin32Error());
-                }
-                UpdateWindow(panel1.Handle);
-            }
-            else if (dialogResult == DialogResult.No)
-            {
-
-            }
-        }
-    }
-
-    void reCheckRunningProcess()
-        {
-           // Console.WriteLine("Rechecking");
-            processes.Clear();
-        this.Invoke((MethodInvoker)delegate
-            {
-                listView1.Items.Clear();
-                Process[] tempProcess = Process.GetProcesses();
-                foreach (Process p in tempProcess)
-                {
-                    if (!String.IsNullOrEmpty(p.MainWindowTitle))
+                    try
                     {
-                        processes.Add(p);
-                        String[] row = { p.MainWindowTitle, "Overlay not added" };
-                        var ListViewItem = new ListViewItem(row);
-                        listView1.Items.Add(ListViewItem);
+                        p.WaitForInputIdle();
                     }
-                }
-   
-            }
-            
-            );
-           
+                    catch (Exception err)
+                    {
 
+                        Console.WriteLine("This process probably has no GUI : {0}", err.Message);
+                    }
+
+                    IntPtr guestHandle = this.panel1.Handle;
+                    SetWindowLong(guestHandle, GWL_STYLE, GetWindowLong(guestHandle, GWL_STYLE) | WS_CHILD);
+                    IntPtr x = SetParent(p.MainWindowHandle, panel1.Handle);
+                    if (x == null)
+                    {
+                        Console.WriteLine("Last error: " + Marshal.GetLastWin32Error());
+                    }
+                    uint uflags = 0x0001 | 0x0002 | 0x0004 | 0x0020;
+                    bool value = SetWindowPos(panel1.Handle, this.Handle, 0, 0, 600, 600, uflags);
+                    if (!value)
+                    {
+                        Console.WriteLine("Error {0}", Marshal.GetLastWin32Error());
+                    }
+                    UpdateWindow(panel1.Handle);
+                }
+                else if (dialogResult == DialogResult.No)
+                {
+                    Console.WriteLine("Okay, Not adding to GUI");
+                }
+            }
         }
 
-   
+        void ReCheckRunningProcess()
+        {
+            // Console.WriteLine("Rechecking");
+            processes.Clear();
+            if (running)
+            {
+                this.Invoke((MethodInvoker)delegate
+                    {
+                        listView1.Items.Clear();
+                        Process[] tempProcess = Process.GetProcesses();
+                        foreach (Process p in tempProcess)
+                        {
+                            if (!String.IsNullOrEmpty(p.MainWindowTitle))
+                            {
+                                //if (!processes.Contains(p))
+                                {
+                                    processes.Add(p);
+                                    String[] row = { p.MainWindowTitle, "Overlay not added" };
+                                    var ListViewItem = new ListViewItem(row);
+                                    listView1.Items.Add(ListViewItem);
+                                }
+                            }
+                        }
+
+                    }
+
+                    );
+
+            }
+        }
+
+
     }
 }

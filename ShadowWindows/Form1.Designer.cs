@@ -40,11 +40,11 @@
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2});
+            this.listView1.Dock = System.Windows.Forms.DockStyle.Left;
             this.listView1.HideSelection = false;
-            this.listView1.SelectedIndexChanged+=listView1_SelectedIndexChanged;
-            this.listView1.Location = new System.Drawing.Point(106, 83);
+            this.listView1.Location = new System.Drawing.Point(0, 0);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(750, 500);
+            this.listView1.Size = new System.Drawing.Size(750, 1180);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -65,10 +65,12 @@
             this.panel1.AutoSize = true;
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel1.Location = new System.Drawing.Point(972, 48);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(750, 0);
+            this.panel1.MaximumSize = new System.Drawing.Size(3840, 2160);
             this.panel1.MinimumSize = new System.Drawing.Size(500, 500);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1069, 823);
+            this.panel1.Size = new System.Drawing.Size(1402, 1180);
             this.panel1.TabIndex = 2;
             // 
             // Form1

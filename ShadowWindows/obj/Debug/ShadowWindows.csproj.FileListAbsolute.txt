@@ -7,3 +7,13 @@ D:\VisualProjects\Nexus\ShadowWindows\ShadowWindows\obj\Debug\ShadowWindows.Prop
 D:\VisualProjects\Nexus\ShadowWindows\ShadowWindows\obj\Debug\ShadowWindows.csproj.GenerateResource.Cache
 D:\VisualProjects\Nexus\ShadowWindows\ShadowWindows\obj\Debug\ShadowWindows.exe
 D:\VisualProjects\Nexus\ShadowWindows\ShadowWindows\obj\Debug\ShadowWindows.pdb
+D:\Repo\ShadowWindows\ShadowWindows\bin\Debug\ShadowWindows.exe.config
+D:\Repo\ShadowWindows\ShadowWindows\bin\Debug\ShadowWindows.exe
+D:\Repo\ShadowWindows\ShadowWindows\obj\Debug\ShadowWindows.csprojAssemblyReference.cache
+D:\Repo\ShadowWindows\ShadowWindows\obj\Debug\ShadowWindows.Form1.resources
+D:\Repo\ShadowWindows\ShadowWindows\obj\Debug\ShadowWindows.Properties.Resources.resources
+D:\Repo\ShadowWindows\ShadowWindows\obj\Debug\ShadowWindows.csproj.GenerateResource.cache
+D:\Repo\ShadowWindows\ShadowWindows\obj\Debug\ShadowWindows.csproj.CoreCompileInputs.cache
+D:\Repo\ShadowWindows\ShadowWindows\obj\Debug\ShadowWindows.exe
+D:\Repo\ShadowWindows\ShadowWindows\obj\Debug\ShadowWindows.pdb
+D:\Repo\ShadowWindows\ShadowWindows\bin\Debug\ShadowWindows.pdb

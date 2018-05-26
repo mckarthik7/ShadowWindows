@@ -16,15 +16,15 @@ namespace ShadowWindows
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter,
             int X, int Y, int cx, int cy, uint uFlags);
-        public static void LoadProcessInControl(string _Process, Control _Control/*,IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags*/)
-        {
+       // public static void LoadProcessInControl(string _Process, Control _Control/*,IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags*/)
+       /* {
             System.Diagnostics.Process p = System.Diagnostics.Process.Start(_Process);
             //Thread.Sleep(10000);
             try
             {
                 p.WaitForInputIdle();
                 Native.SetParent(p.MainWindowHandle, _Control.Handle);
-               // SetWindowPos(p.MainWindowHandle, hWnd, hWndInsertAfter, X, Y, cx, cy, uFlags);
+                SetWindowPos(p.MainWindowHandle, hWnd, hWndInsertAfter, X, Y, cx, cy, uFlags);
             }
             catch(Exception e)
             {
@@ -33,5 +33,6 @@ namespace ShadowWindows
             //Native.SetParent(p.MainWindowHandle, _Control.Handle);
 
         }
+        */
     }
 }
